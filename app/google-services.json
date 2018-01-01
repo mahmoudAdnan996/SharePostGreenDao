@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "696205564614",
+    "firebase_url": "https://sharepostgreendao.firebaseio.com",
+    "project_id": "sharepostgreendao",
+    "storage_bucket": "sharepostgreendao.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:696205564614:android:b32e339928e5277e",
+        "android_client_info": {
+          "package_name": "com.example.mahmoudadnan.sharepostgreendao"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "696205564614-qajh5rdisb5m81k7ek0d0qabu0shrirk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mahmoudadnan.sharepostgreendao",
+            "certificate_hash": "d7da900a3bf95351c738f7a218d41a45c7ca76c9"
+          }
+        },
+        {
+          "client_id": "696205564614-9s59q5g2ma138ipk5si3t98b8qa5sl5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG0pt1rjlpoUv_oWIcEr-ZyY6G3IMzzQ0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "696205564614-9s59q5g2ma138ipk5si3t98b8qa5sl5b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

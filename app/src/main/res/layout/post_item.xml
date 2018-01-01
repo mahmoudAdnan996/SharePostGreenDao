@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#FFFF"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="6dp">
+        <TextView
+            android:id="@+id/postOwnerTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post Owner"
+            android:textColor="#000000"
+            android:textSize="18sp"/>
+        <TextView
+            android:id="@+id/typeTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="type"/>
+        <TextView
+            android:id="@+id/postTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp"
+            android:text="Post Post Post Post Post Post Post Post PostPostPost Post Post Post PostPostPost Post Post Post Post Post "
+            />
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#dfdfdf"
+            android:layout_marginTop="6dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+            <ImageButton
+                android:id="@+id/likeBTN"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:background="@drawable/like"/>
+
+            <ImageButton
+                android:id="@+id/commentBTN"
+                android:layout_width="50dp"
+                android:layout_height="40dp"
+                android:background="@mipmap/comment"/>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/commentET"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="comment"
+            android:textColor="#000"
+            android:background="@drawable/comment_item"/>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

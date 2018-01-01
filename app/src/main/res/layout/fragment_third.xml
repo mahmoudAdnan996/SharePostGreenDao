@@ -1,0 +1,23 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/slide3"
+    tools:context="com.example.mahmoudadnan.sharepostgreendao.ui.fragment.ThirdFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="203dp"
+        android:text="@string/slide3_title"
+        android:gravity="center"
+        android:textSize="23sp"
+        android:textColor="#FFFF"
+        android:textStyle="bold"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:id="@+id/textView" />
+
+</FrameLayout>

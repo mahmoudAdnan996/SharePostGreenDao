@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.mahmoudadnan.sharepostgreendao.ui.MainActivity">
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/create_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="6dp">
+            <EditText
+                android:id="@+id/createET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Create post"
+                android:layout_marginLeft="7dp"
+                android:layout_marginBottom="6dp"
+                android:background="@android:color/transparent"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageButton
+                    android:id="@+id/openIMG"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:onClick="chooseImage"
+                    android:background="@mipmap/open_image"
+                    tools:ignore="OnClick" />
+
+                <Button
+                    android:id="@+id/postBTN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:text="Post"
+                    android:backgroundTint="#35a2ea"
+                    android:background="@drawable/btn_shape"
+                    android:textColor="#FFFF"
+                    android:textSize="16sp"
+                    android:onClick="createPost"
+                    android:textAllCaps="false"
+                    tools:ignore="OnClick" />
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/postIMG"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginLeft="7dp"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/postsRC"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>
