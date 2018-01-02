@@ -23,13 +23,10 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.postOwnerTV) TextView postOwner;
     @BindView(R.id.postTV) TextView postText;
     @BindView(R.id.typeTV) TextView typeText;
-    @BindView(R.id.postImage)
-    ImageView postImage;
-    @BindView(R.id.likeBTN)
-    ImageButton likeBtn;
+    @BindView(R.id.postImage) ImageView postImage;
+    @BindView(R.id.likeBTN) ImageButton likeBtn;
     @BindView(R.id.commentBTN) ImageButton commentBtn;
-    @BindView(R.id.commentET)
-    EditText commentText;
+    @BindView(R.id.commentET) EditText commentText;
 
     public PostViewHolder(View itemView) {
         super(itemView);
@@ -39,6 +36,12 @@ public class PostViewHolder extends RecyclerView.ViewHolder {
             @Override
             public void onClick(View view) {
                 likeBtn.setBackgroundResource(R.drawable.liked);
+            }
+        });
+        commentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                commentText.requestFocus();
             }
         });
     }

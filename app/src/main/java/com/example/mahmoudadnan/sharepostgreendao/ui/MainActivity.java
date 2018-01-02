@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +30,7 @@ import com.example.mahmoudadnan.sharepostgreendao.model.DaoSession;
 import com.example.mahmoudadnan.sharepostgreendao.model.Parent;
 import com.example.mahmoudadnan.sharepostgreendao.model.ParentDao;
 import com.example.mahmoudadnan.sharepostgreendao.model.Post;
+import com.example.mahmoudadnan.sharepostgreendao.model.PostDao;
 import com.example.mahmoudadnan.sharepostgreendao.model.SchoolLead;
 import com.example.mahmoudadnan.sharepostgreendao.model.SchoolLeadDao;
 import com.example.mahmoudadnan.sharepostgreendao.model.Student;
@@ -55,16 +55,10 @@ import static com.example.mahmoudadnan.sharepostgreendao.utils.Constants.USER_TY
 
 public class MainActivity extends AppCompatActivity {
 
-
-
-    @BindView(R.id.createET)
-    EditText createPostET;
-    @BindView(R.id.openIMG)
-    ImageButton openImageBTN;
-    @BindView(R.id.postBTN)
-    Button postBTN;
-    @BindView(R.id.postIMG)
-    ImageView postImage;
+    @BindView(R.id.createET) EditText createPostET;
+    @BindView(R.id.openIMG) ImageButton openImageBTN;
+    @BindView(R.id.postBTN) Button postBTN;
+    @BindView(R.id.postIMG) ImageView postImage;
     @BindView(R.id.postsRC)RecyclerView postsRecyclerView;
 
     Uri uri;
@@ -112,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
-
     }
 
     private void takeImageIntent(){
@@ -123,7 +116,6 @@ public class MainActivity extends AppCompatActivity {
             if (takeImage.resolveActivity(getPackageManager()) != null){
                 startActivityForResult(takeImage, CAMERA_CAPTURE_IMAGE_REQUEST_CODE);
             }
-
         }
     }
 
@@ -171,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu_welcome, menu);
         return true;
     }
@@ -179,17 +170,67 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        List<Post> postList;
+        switch (id){
+            case R.id.action_settings:
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this)
+                        .setMessage("Are you sure?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Intent intent = new Intent(MainActivity.this, PositionActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                return;
+                            }
+                        });
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
 
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(MainActivity.this, PositionActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
+                return true;
+
+            case R.id.parentPosts:
+                postList = getAppDaoSession().getPostDao().queryBuilder().where(PostDao.Properties.OwnerType.eq("Parent")).list();
+                adapter = new PostAdapter(postList, MainActivity.this);
+                postsRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.teacherPosts:
+                postList = getAppDaoSession().getPostDao().queryBuilder().where(PostDao.Properties.OwnerType.eq("Teacher")).list();
+                adapter = new PostAdapter(postList, MainActivity.this);
+                postsRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.leadPosts:
+                postList = getAppDaoSession().getPostDao().queryBuilder().where(PostDao.Properties.OwnerType.eq("School Lead")).list();
+                adapter = new PostAdapter(postList, MainActivity.this);
+                postsRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.studentPosts:
+                postList = getAppDaoSession().getPostDao().queryBuilder().where(PostDao.Properties.OwnerType.eq("Student")).list();
+                adapter = new PostAdapter(postList, MainActivity.this);
+                postsRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                return true;
+
+            case R.id.allPosts:
+                adapter = new PostAdapter(posts, MainActivity.this);
+                postsRecyclerView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -203,66 +244,71 @@ public class MainActivity extends AppCompatActivity {
         String postTxt = createPostET.getText().toString();
         String imageUri = String.valueOf(uri);
 
-        if (type.equals("Parent")){
-            List<Parent> parentList = getAppDaoSession().getParentDao().queryBuilder().where(ParentDao.Properties.Email.eq(email)).limit(1).list();
-            username = parentList.get(0).getUsername();
+        switch (type){
+            case "Parent":
+                List<Parent> parentList = getAppDaoSession().getParentDao().queryBuilder().where(ParentDao.Properties.Email.eq(email)).limit(1).list();
+                username = parentList.get(0).getUsername();
 
-            if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
-                post = new Post(null,postTxt, imageUri, username, "Parent");
-                getAppDaoSession().getPostDao().insert(post);
-                createPostET.setText("");
-                postImage.setVisibility(View.GONE);
-                adapter.add(post);
-                adapter.notifyDataSetChanged();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
-            }
-        }
-        else if (type.equals("Teacher")){
-            List<Teacher> teacherList = getAppDaoSession().getTeacherDao().queryBuilder().where(TeacherDao.Properties.Email.eq(email)).limit(1).list();
-            username = teacherList.get(0).getUsername();
-            if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
-                post = new Post(null, postTxt, imageUri, username, "Teacher");
-                getAppDaoSession().getPostDao().insert(post);
-                createPostET.setText("");
-                postImage.setVisibility(View.GONE);
-                adapter.add(post);
-                adapter.notifyDataSetChanged();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
-            }
-        }
-        else if (type.equals("School Lead")){
-            List<SchoolLead> schoolLeadList = getAppDaoSession().getSchoolLeadDao().queryBuilder().where(SchoolLeadDao.Properties.Email.eq(email)).limit(1).list();
-            username = schoolLeadList.get(0).getUsername();
-            if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
-                post = new Post(null,postTxt, imageUri, username, "School Lead");
-                getAppDaoSession().getPostDao().insert(post);
-                createPostET.setText("");
-                postImage.setVisibility(View.GONE);
-                adapter.add(post);
-                adapter.notifyDataSetChanged();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
-            }
-        }
-        else if (type.equals("Student")){
-            List<Student> studentList = getAppDaoSession().getStudentDao().queryBuilder().where(StudentDao.Properties.Email.eq(email)).limit(1).list();
-            username = studentList.get(0).getUsername();
-            if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
-                post = new Post(null,postTxt, imageUri, username, "Student");
-                getAppDaoSession().getPostDao().insert(post);
-                createPostET.setText("");
-                postImage.setVisibility(View.GONE);
-                adapter.add(post);
-                adapter.notifyDataSetChanged();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
-            }
+                if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
+                    post = new Post(null,postTxt, imageUri, username, "Parent");
+                    getAppDaoSession().getPostDao().insert(post);
+                    createPostET.setText("");
+                    postImage.setVisibility(View.GONE);
+                    adapter.add(post);
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+            case "Teacher":
+                List<Teacher> teacherList = getAppDaoSession().getTeacherDao().queryBuilder().where(TeacherDao.Properties.Email.eq(email)).limit(1).list();
+                username = teacherList.get(0).getUsername();
+                if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
+                    post = new Post(null, postTxt, imageUri, username, "Teacher");
+                    getAppDaoSession().getPostDao().insert(post);
+                    createPostET.setText("");
+                    postImage.setVisibility(View.GONE);
+                    adapter.add(post);
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+            case "School Lead":
+                List<SchoolLead> schoolLeadList = getAppDaoSession().getSchoolLeadDao().queryBuilder().where(SchoolLeadDao.Properties.Email.eq(email)).limit(1).list();
+                username = schoolLeadList.get(0).getUsername();
+                if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
+                    post = new Post(null,postTxt, imageUri, username, "School Lead");
+                    getAppDaoSession().getPostDao().insert(post);
+                    createPostET.setText("");
+                    postImage.setVisibility(View.GONE);
+                    adapter.add(post);
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
+                }
+                break;
+
+            case "Student":
+                List<Student> studentList = getAppDaoSession().getStudentDao().queryBuilder().where(StudentDao.Properties.Email.eq(email)).limit(1).list();
+                username = studentList.get(0).getUsername();
+                if (!postTxt.isEmpty() || !imageUri.isEmpty()) {
+                    post = new Post(null,postTxt, imageUri, username, "Student");
+                    getAppDaoSession().getPostDao().insert(post);
+                    createPostET.setText("");
+                    postImage.setVisibility(View.GONE);
+                    adapter.add(post);
+                    adapter.notifyDataSetChanged();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "There is no post", Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
     private DaoSession getAppDaoSession() {

@@ -48,7 +48,6 @@ public class Register extends AppCompatActivity {
         Intent intent = getIntent();
         type = intent.getStringExtra(USER_TYPE);
         Toast.makeText(getApplicationContext(), type, Toast.LENGTH_LONG).show();
-
     }
 
     @OnClick(R.id.signUpBTN)
@@ -68,41 +67,47 @@ public class Register extends AppCompatActivity {
         }
         else {
             if (password.equals(rPassword)) {
-                if (type.equals("Parent")){
-                    getAppDaoSession().getParentDao().insert(parent);
-                    Toast.makeText(getApplicationContext(), "Parent Added Successfully", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Register.this, MainActivity.class);
-                    intent.putExtra(USER_EMAIL, email);
-                    intent.putExtra(USER_TYPE, "Parent");
-                    startActivity(intent);
-                    finish();
-                }
-                else if (type.equals("Teacher")){
-                    getAppDaoSession().getTeacherDao().insert(teacher);
-                    Toast.makeText(getApplicationContext(), "Teacher Added Successfully", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Register.this, MainActivity.class);
-                    intent.putExtra(USER_EMAIL, email);
-                    intent.putExtra(USER_TYPE, "Teacher");
-                    startActivity(intent);
-                    finish();
-                }
-                else if (type.equals("School Lead")){
-                    getAppDaoSession().getSchoolLeadDao().insert(lead);
-                    Toast.makeText(getApplicationContext(), "Lead Added Successfully", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Register.this, MainActivity.class);
-                    intent.putExtra(USER_EMAIL, email);
-                    intent.putExtra(USER_TYPE, "School Lead");
-                    startActivity(intent);
-                    finish();
-                }
-                else if (type.equals("Student")){
-                    getAppDaoSession().getStudentDao().insert(student);
-                    Toast.makeText(getApplicationContext(), "Student Added Successfully", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Register.this, MainActivity.class);
-                    intent.putExtra(USER_EMAIL, email);
-                    intent.putExtra(USER_TYPE, "Student");
-                    startActivity(intent);
-                    finish();
+                Intent intent;
+                switch (type) {
+                    case "Parent":
+                        getAppDaoSession().getParentDao().insert(parent);
+                        Toast.makeText(getApplicationContext(), "Parent Added Successfully", Toast.LENGTH_LONG).show();
+                        intent = new Intent(Register.this, MainActivity.class);
+                        intent.putExtra(USER_EMAIL, email);
+                        intent.putExtra(USER_TYPE, "Parent");
+                        startActivity(intent);
+                        finish();
+                        break;
+
+                    case "Teacher":
+                        getAppDaoSession().getTeacherDao().insert(teacher);
+                        Toast.makeText(getApplicationContext(), "Teacher Added Successfully", Toast.LENGTH_LONG).show();
+                        intent = new Intent(Register.this, MainActivity.class);
+                        intent.putExtra(USER_EMAIL, email);
+                        intent.putExtra(USER_TYPE, "Teacher");
+                        startActivity(intent);
+                        finish();
+                        break;
+
+                    case "School Lead":
+                        getAppDaoSession().getSchoolLeadDao().insert(lead);
+                        Toast.makeText(getApplicationContext(), "Lead Added Successfully", Toast.LENGTH_LONG).show();
+                        intent = new Intent(Register.this, MainActivity.class);
+                        intent.putExtra(USER_EMAIL, email);
+                        intent.putExtra(USER_TYPE, "School Lead");
+                        startActivity(intent);
+                        finish();
+                        break;
+
+                    case "Student":
+                        getAppDaoSession().getStudentDao().insert(student);
+                        Toast.makeText(getApplicationContext(), "Student Added Successfully", Toast.LENGTH_LONG).show();
+                        intent = new Intent(Register.this, MainActivity.class);
+                        intent.putExtra(USER_EMAIL, email);
+                        intent.putExtra(USER_TYPE, "Student");
+                        startActivity(intent);
+                        finish();
+                        break;
                 }
             } else if (password != rPassword) {
                 Toast.makeText(getApplicationContext(), "Passwords must match", Toast.LENGTH_LONG).show();
