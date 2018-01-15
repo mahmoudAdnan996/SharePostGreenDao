@@ -4,9 +4,7 @@ import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.Generated;
 
-/**
- * Created by mahmoud.adnan on 12/31/2017.
- */
+
 @Entity
 public class SchoolLead {
 

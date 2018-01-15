@@ -32,7 +32,7 @@
             app:fabColor="#12cde6"
             app:fabElevation="6dp"
             app:fabSizes="normal"
-            app:fabText="Create Parent Account"
+            app:fabText="  Create new Account "
             app:fabTextColor="#FFFF"
             app:fabType="roundedSquare" />
 

@@ -78,7 +78,6 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "This user not found", Toast.LENGTH_LONG).show();
-
                 }
                 break;
 
@@ -104,7 +103,6 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "This user not found", Toast.LENGTH_LONG).show();
-
                 }
                 break;
 
@@ -130,7 +128,6 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "This user not found", Toast.LENGTH_LONG).show();
-
                 }
                 break;
 
@@ -156,7 +153,6 @@ public class Login extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "This user not found", Toast.LENGTH_LONG).show();
-
                 }
                 break;
         }

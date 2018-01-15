@@ -57,21 +57,28 @@
                 android:layout_width="50dp"
                 android:layout_height="40dp"
                 android:background="@drawable/like"/>
-
-            <ImageButton
-                android:id="@+id/commentBTN"
-                android:layout_width="50dp"
-                android:layout_height="40dp"
-                android:background="@mipmap/comment"/>
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/commentET"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="comment"
-            android:textColor="#000"
-            android:background="@drawable/comment_item"/>
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/commentET"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="comment"
+                android:textColor="#000"
+                android:background="@drawable/comment_item" />
+            <Button
+                android:id="@+id/add_comment"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:background="@mipmap/send"/>
+        </LinearLayout>
+
 
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -228,13 +228,12 @@ public class MainActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+            inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }

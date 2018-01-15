@@ -11,9 +11,6 @@ import com.example.mahmoudadnan.sharepostgreendao.model.Post;
 
 import java.util.List;
 
-/**
- * Created by mahmoud.adnan on 12/31/2017.
- */
 
 public class PostAdapter extends RecyclerView.Adapter<PostViewHolder> {
 
